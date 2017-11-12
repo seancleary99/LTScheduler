@@ -43,6 +43,7 @@
   <ItemGroup>
     <Compile Include="Classes\CraneHire.cs" />
     <Compile Include="Classes\Contractor.cs" />
+    <Compile Include="Classes\JobDeadTime.cs" />
     <Compile Include="Classes\JobPlot.cs" />
     <Compile Include="DAL.cs" />
     <Compile Include="Classes\Erector.cs" />

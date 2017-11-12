@@ -37,5 +37,11 @@ namespace DAL
         DataTable GetUnsheduledPlots();
         bool RecalculateSchedule(int weeklyHours, DateTime? fromDateTime);
         DataTable GetWeeklyJobsForExport(string dateFrom, string dateTo);
+
+        bool SaveJobDeadTime(int JobId, int DeadTime, string Notes);
+        DataTable GetJobDeadTime(int JobID);
+        DataTable GetJobRecurringConfig(int JobID);
+        bool SaveJobRecurringConfig(int JobId, DateTime ScheduleStartDate, bool Daily, bool Weekly, bool Fortnightly, bool Monthly, bool Custom, int CustomDays, DateTime CancelledDate);
+
     }
 }

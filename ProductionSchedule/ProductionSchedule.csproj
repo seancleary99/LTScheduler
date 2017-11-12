@@ -113,11 +113,23 @@
     <Compile Include="frmCranes.Designer.cs">
       <DependentUpon>frmCranes.cs</DependentUpon>
     </Compile>
+    <Compile Include="frmDeadTime.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmDeadTime.Designer.cs">
+      <DependentUpon>frmDeadTime.cs</DependentUpon>
+    </Compile>
     <Compile Include="frmErectors.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="frmErectors.Designer.cs">
       <DependentUpon>frmErectors.cs</DependentUpon>
+    </Compile>
+    <Compile Include="frmExportSchedule.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmExportSchedule.Designer.cs">
+      <DependentUpon>frmExportSchedule.cs</DependentUpon>
     </Compile>
     <Compile Include="frmHouseTypes.cs">
       <SubType>Form</SubType>
@@ -136,6 +148,12 @@
     </Compile>
     <Compile Include="frmPlot.Designer.cs">
       <DependentUpon>frmPlot.cs</DependentUpon>
+    </Compile>
+    <Compile Include="frmRecurringJobConfig.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmRecurringJobConfig.Designer.cs">
+      <DependentUpon>frmRecurringJobConfig.cs</DependentUpon>
     </Compile>
     <Compile Include="frmWorkingHours.cs">
       <SubType>Form</SubType>
@@ -172,8 +190,14 @@
     <EmbeddedResource Include="frmCranes.resx">
       <DependentUpon>frmCranes.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="frmDeadTime.resx">
+      <DependentUpon>frmDeadTime.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="frmErectors.resx">
       <DependentUpon>frmErectors.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmExportSchedule.resx">
+      <DependentUpon>frmExportSchedule.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="frmHouseTypes.resx">
       <DependentUpon>frmHouseTypes.cs</DependentUpon>
@@ -183,6 +207,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="frmPlot.resx">
       <DependentUpon>frmPlot.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmRecurringJobConfig.resx">
+      <DependentUpon>frmRecurringJobConfig.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="frmWorkingHours.resx">
       <DependentUpon>frmWorkingHours.cs</DependentUpon>

@@ -23,6 +23,7 @@ namespace ProductionSchedule
         private BindingSource jobPlotSource = new BindingSource();
          
         public string SelectedJobId { get { return selectedJob.JobId.ToString(); } }
+        public DateTime FirstProdDate { get { return dtProductionDate.Value; } }
         public int SelectedPlotId { get { return GetSelectedPlotID(); } }
 
         public frmJobs()
@@ -314,57 +315,60 @@ namespace ProductionSchedule
 
         private void btnExport_Click(object sender, EventArgs e)
         {
-            Microsoft.Office.Interop.Excel._Application excel = new Microsoft.Office.Interop.Excel.Application();
-            Microsoft.Office.Interop.Excel._Workbook workbook = excel.Workbooks.Add(Type.Missing);
+            frmExportSchedule exportForm = new frmExportSchedule();
+            exportForm.ShowDialog();
+            
+            //Microsoft.Office.Interop.Excel._Application excel = new Microsoft.Office.Interop.Excel.Application();
+            //Microsoft.Office.Interop.Excel._Workbook workbook = excel.Workbooks.Add(Type.Missing);
 
 
-            try
-            {
+            //try
+            //{
 
-                DateTime dtStartDate = dtExportSchedStartDate.Value;
-                System.TimeSpan tsWeek = new TimeSpan(6, 23, 59, 59);
-                DateTime dtEndDate = dtStartDate.Add(tsWeek);
+            //    DateTime dtStartDate = dtExportSchedStartDate.Value;
+            //    System.TimeSpan tsWeek = new TimeSpan(6, 23, 59, 59);
+            //    DateTime dtEndDate = dtStartDate.Add(tsWeek);
 
-                DAL.DAL db = new DAL.DAL();
-                System.Data.DataTable dtWeeksData = new System.Data.DataTable();
-                dtWeeksData = db.GetWeeklyJobsForExport(dtStartDate.ToString("MMMM dd, yyyy HH:mm:ss"), dtEndDate.ToString("MMMM dd, yyyy HH:mm:ss"));
+            //    DAL.DAL db = new DAL.DAL();
+            //    System.Data.DataTable dtWeeksData = new System.Data.DataTable();
+            //    dtWeeksData = db.GetWeeklyJobsForExport(dtStartDate.ToString("MMMM dd, yyyy HH:mm:ss"), dtEndDate.ToString("MMMM dd, yyyy HH:mm:ss"));
 
-                do //If there is no data for a full wee then end of schedule
-                {
-                    AddWorksheetToExcel(ref workbook, dtWeeksData, dtStartDate);
+            //    do //If there is no data for a full wee then end of schedule
+            //    {
+            //        AddWorksheetToExcel(ref workbook, dtWeeksData, dtStartDate);
 
-                    dtStartDate = dtStartDate.Add(new TimeSpan(7, 0, 0, 0));
-                    dtEndDate = dtStartDate.Add(tsWeek);
-                    dtWeeksData = db.GetWeeklyJobsForExport(dtStartDate.ToString("MMMM dd, yyyy HH:mm:ss"), dtEndDate.ToString("MMMM dd, yyyy HH:mm:ss"));
-                }
-                while (dtWeeksData.Rows.Count > 0);
+            //        dtStartDate = dtStartDate.Add(new TimeSpan(7, 0, 0, 0));
+            //        dtEndDate = dtStartDate.Add(tsWeek);
+            //        dtWeeksData = db.GetWeeklyJobsForExport(dtStartDate.ToString("MMMM dd, yyyy HH:mm:ss"), dtEndDate.ToString("MMMM dd, yyyy HH:mm:ss"));
+            //    }
+            //    while (dtWeeksData.Rows.Count > 0);
 
-  
 
-                excel.DisplayAlerts = false;
-                workbook.Sheets["Sheet1"].Delete();
-                excel.DisplayAlerts = true;
-                //Getting the location and file name of the excel to save from user. 
-                SaveFileDialog saveDialog = new SaveFileDialog();
-                saveDialog.Filter = "Excel files (*.xlsx)|*.xlsx|All files (*.*)|*.*";
-                saveDialog.FilterIndex = 2;
 
-                if (saveDialog.ShowDialog() == System.Windows.Forms.DialogResult.OK)
-                {
-                   // workbook.SaveAs(saveDialog.FileName);
-                    MessageBox.Show("Export Successful");
-                }
-            }
-            catch (System.Exception ex)
-            {
-                MessageBox.Show(ex.Message);
-            }
-            finally
-            {
-                excel.Quit();
-                workbook = null;
-                excel = null;
-            }
+            //    excel.DisplayAlerts = false;
+            //    workbook.Sheets["Sheet1"].Delete();
+            //    excel.DisplayAlerts = true;
+            //    //Getting the location and file name of the excel to save from user. 
+            //    SaveFileDialog saveDialog = new SaveFileDialog();
+            //    saveDialog.Filter = "Excel files (*.xlsx)|*.xlsx|All files (*.*)|*.*";
+            //    saveDialog.FilterIndex = 2;
+
+            //    if (saveDialog.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+            //    {
+            //        // workbook.SaveAs(saveDialog.FileName);
+            //        MessageBox.Show("Export Successful");
+            //    }
+            //}
+            //catch (System.Exception ex)
+            //{
+            //    MessageBox.Show(ex.Message);
+            //}
+            //finally
+            //{
+            //    excel.Quit();
+            //    workbook = null;
+            //    excel = null;
+            //}
 
         }
 
@@ -457,6 +461,52 @@ namespace ProductionSchedule
                     PopulateJobPlots();
                 }
             }
+        }
+
+        private void label5_Click(object sender, EventArgs e)
+        {
+
+        }
+
+       
+
+        private void CalcNextProdDateCustom()
+        {
+
+        }
+
+        private void label2_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void btnDeadTime_Click(object sender, EventArgs e)
+        {
+            if (lblJobIdVal.Text == "")
+            {
+                MessageBox.Show("You must select a Job before adding Dead Time!", "Warning!", MessageBoxButtons.OK);
+            }
+            else {
+                frmDeadTime addDeadTimeForm = new frmDeadTime(this);
+                addDeadTimeForm.ShowDialog();
+            }
+        }
+
+        private void btnRecurring_Click(object sender, EventArgs e)
+        {
+            if (lblJobIdVal.Text == "")
+            {
+                MessageBox.Show("You must select a Job before configuring recurring schedule!", "Warning!", MessageBoxButtons.OK);
+            }
+            else {
+                frmRecurringJobConfig configRecurringForm = new frmRecurringJobConfig(this);
+                configRecurringForm.ShowDialog();
+            }
+        }
+
+        private void label2_Click_1(object sender, EventArgs e)
+        {
+
         }
     }
 }

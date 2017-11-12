@@ -45,7 +45,7 @@
             this.lblSiteCompleted = new System.Windows.Forms.Label();
             this.chkSiteComplete = new System.Windows.Forms.CheckBox();
             this.btnAddNewJob = new System.Windows.Forms.Button();
-            this.label2 = new System.Windows.Forms.Label();
+            this.lblProdDate = new System.Windows.Forms.Label();
             this.dtProductionDate = new System.Windows.Forms.DateTimePicker();
             this.label3 = new System.Windows.Forms.Label();
             this.dtOnSite = new System.Windows.Forms.DateTimePicker();
@@ -65,6 +65,10 @@
             this.label6 = new System.Windows.Forms.Label();
             this.dtProdCompleteDate = new System.Windows.Forms.DateTimePicker();
             this.dtExportSchedStartDate = new System.Windows.Forms.DateTimePicker();
+            this.btnDeadTime = new System.Windows.Forms.Button();
+            this.btnRecurring = new System.Windows.Forms.Button();
+            this.label2 = new System.Windows.Forms.Label();
+            this.label7 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.dgJobs)).BeginInit();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgJobPlots)).BeginInit();
@@ -72,7 +76,7 @@
             // 
             // Delete
             // 
-            this.Delete.Location = new System.Drawing.Point(116, 546);
+            this.Delete.Location = new System.Drawing.Point(116, 577);
             this.Delete.Name = "Delete";
             this.Delete.Size = new System.Drawing.Size(75, 23);
             this.Delete.TabIndex = 100;
@@ -81,7 +85,7 @@
             // 
             // btnSaveJob
             // 
-            this.btnSaveJob.Location = new System.Drawing.Point(12, 546);
+            this.btnSaveJob.Location = new System.Drawing.Point(12, 577);
             this.btnSaveJob.Name = "btnSaveJob";
             this.btnSaveJob.Size = new System.Drawing.Size(98, 23);
             this.btnSaveJob.TabIndex = 99;
@@ -210,7 +214,7 @@
             // btnAddNewJob
             // 
             this.btnAddNewJob.AutoSize = true;
-            this.btnAddNewJob.Location = new System.Drawing.Point(206, 546);
+            this.btnAddNewJob.Location = new System.Drawing.Point(206, 577);
             this.btnAddNewJob.Name = "btnAddNewJob";
             this.btnAddNewJob.Size = new System.Drawing.Size(81, 23);
             this.btnAddNewJob.TabIndex = 101;
@@ -218,14 +222,14 @@
             this.btnAddNewJob.UseVisualStyleBackColor = true;
             this.btnAddNewJob.Click += new System.EventHandler(this.btnAddNewJob_Click);
             // 
-            // label2
+            // lblProdDate
             // 
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(12, 204);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(87, 13);
-            this.label2.TabIndex = 102;
-            this.label2.Text = "Production Date:";
+            this.lblProdDate.AutoSize = true;
+            this.lblProdDate.Location = new System.Drawing.Point(12, 204);
+            this.lblProdDate.Name = "lblProdDate";
+            this.lblProdDate.Size = new System.Drawing.Size(87, 13);
+            this.lblProdDate.TabIndex = 102;
+            this.lblProdDate.Text = "Production Date:";
             // 
             // dtProductionDate
             // 
@@ -281,9 +285,9 @@
             this.dgJobs.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.AllHeaders;
             this.dgJobs.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgJobs.EditMode = System.Windows.Forms.DataGridViewEditMode.EditProgrammatically;
-            this.dgJobs.Location = new System.Drawing.Point(15, 390);
+            this.dgJobs.Location = new System.Drawing.Point(15, 421);
             this.dgJobs.Name = "dgJobs";
-            this.dgJobs.Size = new System.Drawing.Size(1021, 150);
+            this.dgJobs.Size = new System.Drawing.Size(1097, 150);
             this.dgJobs.TabIndex = 108;
             this.dgJobs.RowHeaderMouseClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.dgJobs_RowHeaderMouseClick);
             // 
@@ -294,14 +298,14 @@
             this.panel1.Controls.Add(this.btnAddPlot);
             this.panel1.Controls.Add(this.dgJobPlots);
             this.panel1.Controls.Add(this.label5);
-            this.panel1.Location = new System.Drawing.Point(370, 37);
+            this.panel1.Location = new System.Drawing.Point(589, 37);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(882, 289);
+            this.panel1.Size = new System.Drawing.Size(711, 317);
             this.panel1.TabIndex = 109;
             // 
             // btnEditPlot
             // 
-            this.btnEditPlot.Location = new System.Drawing.Point(557, 249);
+            this.btnEditPlot.Location = new System.Drawing.Point(542, 249);
             this.btnEditPlot.Name = "btnEditPlot";
             this.btnEditPlot.Size = new System.Drawing.Size(109, 23);
             this.btnEditPlot.TabIndex = 4;
@@ -332,7 +336,7 @@
             // dgJobPlots
             // 
             this.dgJobPlots.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgJobPlots.Location = new System.Drawing.Point(22, 46);
+            this.dgJobPlots.Location = new System.Drawing.Point(22, 39);
             this.dgJobPlots.Name = "dgJobPlots";
             this.dgJobPlots.Size = new System.Drawing.Size(644, 185);
             this.dgJobPlots.TabIndex = 1;
@@ -341,11 +345,12 @@
             // 
             this.label5.AutoSize = true;
             this.label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label5.Location = new System.Drawing.Point(18, 7);
+            this.label5.Location = new System.Drawing.Point(18, 12);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(121, 24);
             this.label5.TabIndex = 0;
             this.label5.Text = "JOB PLOTS";
+            this.label5.Click += new System.EventHandler(this.label5_Click);
             // 
             // lblProductionTime
             // 
@@ -367,9 +372,9 @@
             // 
             // btnExport
             // 
-            this.btnExport.Location = new System.Drawing.Point(722, 546);
+            this.btnExport.Location = new System.Drawing.Point(1118, 501);
             this.btnExport.Name = "btnExport";
-            this.btnExport.Size = new System.Drawing.Size(103, 23);
+            this.btnExport.Size = new System.Drawing.Size(122, 23);
             this.btnExport.TabIndex = 112;
             this.btnExport.Text = "Export to Excel";
             this.btnExport.UseVisualStyleBackColor = true;
@@ -377,7 +382,7 @@
             // 
             // btnRecalc
             // 
-            this.btnRecalc.Location = new System.Drawing.Point(1063, 390);
+            this.btnRecalc.Location = new System.Drawing.Point(1118, 421);
             this.btnRecalc.Name = "btnRecalc";
             this.btnRecalc.Size = new System.Drawing.Size(122, 23);
             this.btnRecalc.TabIndex = 113;
@@ -407,17 +412,65 @@
             // dtExportSchedStartDate
             // 
             this.dtExportSchedStartDate.CustomFormat = "dd/MM/yyyy HH:mm";
+            this.dtExportSchedStartDate.Enabled = false;
             this.dtExportSchedStartDate.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
-            this.dtExportSchedStartDate.Location = new System.Drawing.Point(836, 546);
+            this.dtExportSchedStartDate.Location = new System.Drawing.Point(1118, 475);
             this.dtExportSchedStartDate.Name = "dtExportSchedStartDate";
-            this.dtExportSchedStartDate.Size = new System.Drawing.Size(200, 20);
+            this.dtExportSchedStartDate.Size = new System.Drawing.Size(118, 20);
             this.dtExportSchedStartDate.TabIndex = 116;
+            this.dtExportSchedStartDate.Visible = false;
+            // 
+            // btnDeadTime
+            // 
+            this.btnDeadTime.Location = new System.Drawing.Point(428, 69);
+            this.btnDeadTime.Name = "btnDeadTime";
+            this.btnDeadTime.Size = new System.Drawing.Size(135, 23);
+            this.btnDeadTime.TabIndex = 120;
+            this.btnDeadTime.Text = "Record Dead Time";
+            this.btnDeadTime.UseVisualStyleBackColor = true;
+            this.btnDeadTime.Click += new System.EventHandler(this.btnDeadTime_Click);
+            // 
+            // btnRecurring
+            // 
+            this.btnRecurring.Location = new System.Drawing.Point(428, 37);
+            this.btnRecurring.Name = "btnRecurring";
+            this.btnRecurring.Size = new System.Drawing.Size(135, 23);
+            this.btnRecurring.TabIndex = 121;
+            this.btnRecurring.Text = "Configure Recurring";
+            this.btnRecurring.UseVisualStyleBackColor = true;
+            this.btnRecurring.Click += new System.EventHandler(this.btnRecurring_Click);
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label2.Location = new System.Drawing.Point(13, 395);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(235, 24);
+            this.label2.TabIndex = 5;
+            this.label2.Text = "SCHEDULE OVERVIEW";
+            this.label2.Click += new System.EventHandler(this.label2_Click_1);
+            // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.Enabled = false;
+            this.label7.Location = new System.Drawing.Point(1115, 459);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(153, 13);
+            this.label7.TabIndex = 122;
+            this.label7.Text = "Export schedule after this date:";
+            this.label7.Visible = false;
             // 
             // frmJobs
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1252, 572);
+            this.ClientSize = new System.Drawing.Size(1260, 608);
+            this.Controls.Add(this.label7);
+            this.Controls.Add(this.label2);
+            this.Controls.Add(this.btnRecurring);
+            this.Controls.Add(this.btnDeadTime);
             this.Controls.Add(this.dtExportSchedStartDate);
             this.Controls.Add(this.dtProdCompleteDate);
             this.Controls.Add(this.label6);
@@ -432,7 +485,7 @@
             this.Controls.Add(this.dtOnSite);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.dtProductionDate);
-            this.Controls.Add(this.label2);
+            this.Controls.Add(this.lblProdDate);
             this.Controls.Add(this.btnAddNewJob);
             this.Controls.Add(this.chkSiteComplete);
             this.Controls.Add(this.lblSiteCompleted);
@@ -485,7 +538,7 @@
         private System.Windows.Forms.DateTimePicker dtProductionDate;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.DateTimePicker dtOnSite;
-        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.Label lblProdDate;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.DateTimePicker dtCompletionDate;
         private System.Windows.Forms.DataGridView dgJobs;
@@ -502,5 +555,9 @@
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.DateTimePicker dtProdCompleteDate;
         private System.Windows.Forms.DateTimePicker dtExportSchedStartDate;
+        private System.Windows.Forms.Button btnDeadTime;
+        private System.Windows.Forms.Button btnRecurring;
+        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.Label label7;
     }
 }

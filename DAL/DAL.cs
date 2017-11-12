@@ -705,6 +705,126 @@ namespace DAL
             }
             return isDeleted;
         }
+
+        public bool SaveJobDeadTime(int JobId, int DeadTime, string Notes)
+        {
+            bool isSaved = true;          
+
+            SqlCommand SaveJobDeadTime = new SqlCommand("SaveJobDeadTime", conn);
+            SaveJobDeadTime.CommandType = System.Data.CommandType.StoredProcedure;
+
+            SaveJobDeadTime.Parameters.Add(new SqlParameter("@JobID", JobId));
+            SaveJobDeadTime.Parameters.Add(new SqlParameter("@DeadTime", DeadTime));
+            SaveJobDeadTime.Parameters.Add(new SqlParameter("@Notes", Notes));
+
+
+            try
+            {
+                conn.Open();
+                SaveJobDeadTime.ExecuteNonQuery();               
+            }
+            catch (Exception ex)
+            {
+                isSaved = false;
+            }
+            finally
+            {
+                conn.Close();
+
+            }
+
+            return isSaved;
+        }
+
+        public DataTable GetJobDeadTime(int JobID)
+        {
+            DataTable dtJobDeadTime = new DataTable();
+            SqlCommand spGetJobDeadTime = new SqlCommand("GetJobDeadTime", conn);
+            spGetJobDeadTime.CommandType = System.Data.CommandType.StoredProcedure;
+            spGetJobDeadTime.Parameters.Add(
+             new SqlParameter("@JobID", JobID));
+            try
+            {
+                conn.Open();
+                SqlDataAdapter sDa = new SqlDataAdapter(spGetJobDeadTime);
+
+                sDa.Fill(dtJobDeadTime);
+
+            }
+            catch (Exception ex)
+            {
+
+            }
+            finally
+            {
+                conn.Close();
+
+            }
+            return dtJobDeadTime;
+        }
+
+        public DataTable GetJobRecurringConfig(int JobID)
+        {
+            DataTable dtJobRecurrConfig = new DataTable();
+            SqlCommand spGetJobRecurrConfig = new SqlCommand("GetJobRecurringConfig", conn);
+            spGetJobRecurrConfig.CommandType = System.Data.CommandType.StoredProcedure;
+            spGetJobRecurrConfig.Parameters.Add(
+             new SqlParameter("@JobID", JobID));
+            try
+            {
+                conn.Open();
+                SqlDataAdapter sDa = new SqlDataAdapter(spGetJobRecurrConfig);
+
+                sDa.Fill(dtJobRecurrConfig);
+
+            }
+            catch (Exception ex)
+            {
+
+            }
+            finally
+            {
+                conn.Close();
+
+            }
+            return dtJobRecurrConfig;
+        }
+
+        public bool SaveJobRecurringConfig(int JobId, DateTime ScheduleStartDate, bool Daily, bool Weekly, bool Fortnightly, bool Monthly, bool Custom, int CustomDays, DateTime CancelledDate)
+        {
+            bool isSaved = true;
+
+            SqlCommand SaveJobRecurringConfig = new SqlCommand("SaveJobRecurringConfig", conn);
+            SaveJobRecurringConfig.CommandType = System.Data.CommandType.StoredProcedure;
+
+            SaveJobRecurringConfig.Parameters.Add(new SqlParameter("@JobID", JobId));
+            SaveJobRecurringConfig.Parameters.Add(new SqlParameter("@ScheduleStartDate", ScheduleStartDate));
+            SaveJobRecurringConfig.Parameters.Add(new SqlParameter("@Daily", Daily));
+            SaveJobRecurringConfig.Parameters.Add(new SqlParameter("@Weekly", Weekly));
+            SaveJobRecurringConfig.Parameters.Add(new SqlParameter("@Fortnightly", Fortnightly));
+            SaveJobRecurringConfig.Parameters.Add(new SqlParameter("@Monthly", Monthly));
+            SaveJobRecurringConfig.Parameters.Add(new SqlParameter("@Custom", Custom));
+            SaveJobRecurringConfig.Parameters.Add(new SqlParameter("@CustomDays", CustomDays));
+            SaveJobRecurringConfig.Parameters.Add(new SqlParameter("@CancelledDate", CancelledDate));
+
+            try
+            {
+                conn.Open();
+                SaveJobRecurringConfig.ExecuteNonQuery();
+            }
+            catch (Exception ex)
+            {
+                isSaved = false;
+            }
+            finally
+            {
+                conn.Close();
+
+            }
+
+            return isSaved;
+        }
+
         #endregion
 
         #region Plots
