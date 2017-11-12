@@ -27,12 +27,15 @@ namespace DAL
         bool SaveContractor(int id, string contractorName);
         bool DeleteContractor(int id);
         int SavePlot(int id, string plotName, int plotType, float lineTot, float floorTot, float benchTot);
-        int SaveJobPlot(int jobPlotId, int plotId, int jobID, int houseType, int erectorId, int craneId, DateTime? prodDate, DateTime? onsiteDate, DateTime? completionDate);
+        //int SaveJobPlot(int jobPlotId, int plotId, int jobID, int houseType, int erectorId, int craneId, DateTime? prodDate, DateTime? onsiteDate, DateTime? completionDate);
+        int SaveJobPlot(int jobPlotId, int plotId, int jobID, int houseType, int erectorId, int craneId);
+        bool DeleteJobPlot(int jobPlotId);
         bool DeletePlot(int id);
 
         DataTable GetJobPlots(int JobPlotID);
         List<JobPlot> GetAllJobPlotsForJob(int jobId);
         DataTable GetUnsheduledPlots();
-
+        bool RecalculateSchedule(int weeklyHours, DateTime? fromDateTime);
+        DataTable GetWeeklyJobsForExport(string dateFrom, string dateTo);
     }
 }

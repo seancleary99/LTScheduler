@@ -19,6 +19,7 @@ namespace DAL.Classes
         private bool _siteComplete;
         private List<JobPlot> _jobPlots;
         private DateTime _prodDate;
+        private DateTime? _prodCompDate;
         private DateTime _onsiteDate;
         private DateTime _completionDate;
 
@@ -29,10 +30,12 @@ namespace DAL.Classes
 
         public string SiteName { get { return _siteName; } set { _siteName = value; } }
         public string SiteContact { get { return _siteContact; } set { _siteContact = value; } }
-        public bool SiteComplete { get { return _siteComplete; } set { _siteComplete = value; } }
+        //public bool SiteComplete { get { return _siteComplete; } set { _siteComplete = value; } }
+        public string SiteComplete { get { return _siteComplete.ToString(); } }
         public List<JobPlot> JobPlots { get { return _jobPlots; } set { _jobPlots = value; } }
 
         public DateTime ProductionDate { get { return _prodDate; } set { _prodDate = value; } }
+        public DateTime? ProductionCompleteDate { get { return _prodCompDate; } set { _prodCompDate = value; } }
         public DateTime OnSiteDate { get { return _onsiteDate; }set { _onsiteDate = value; } }
         public DateTime CompletionDate { get { return _completionDate; } set { _completionDate = value; } }
         #region Constructors
@@ -42,7 +45,7 @@ namespace DAL.Classes
 
         }
 
-        public Job(int jobId, string jobName, string line, int contractorId, string siteName, string siteContact, bool siteComplete, DateTime prodDate, DateTime onsiteDate, DateTime compDate, List<JobPlot> plots)
+        public Job(int jobId, string jobName, string line, int contractorId, string siteName, string siteContact, bool siteComplete, DateTime prodDate, DateTime? prodCompleteDate, DateTime onsiteDate, DateTime compDate, List<JobPlot> plots)
         {
             _jobId = jobId;
             _line = line;
@@ -53,6 +56,7 @@ namespace DAL.Classes
             _siteComplete = siteComplete;
             _completionDate = compDate;
             _prodDate = prodDate;
+            _prodCompDate = prodCompleteDate;
             _onsiteDate = onsiteDate;
             GetJobPlots();
             //_plots = GetJobPlots();
@@ -84,6 +88,7 @@ namespace DAL.Classes
                 _onsiteDate = (DateTime)dtJob.Rows[0]["OnsiteDate"];
                 _prodDate = (DateTime)dtJob.Rows[0]["ProductionDate"];
                 _completionDate = (DateTime)dtJob.Rows[0]["CompletionDate"];
+                _prodCompDate = dtJob.Rows[0]["ProductionCompleteDate"] == DBNull.Value ? (DateTime?)null : (DateTime)dtJob.Rows[0]["ProductionCompleteDate"];
                 GetJobPlots();
             }
         }
@@ -98,7 +103,7 @@ namespace DAL.Classes
         {
             bool isSaved = true;
             DAL db = new DAL();
-          //  isSaved = db.SaveJob(_jobId, _line, _jobName, _contId, _siteName, _siteContact, _siteComplete, _prodDate, _onsiteDate, _completionDate, _plots);
+            isSaved = db.SaveJob(_jobId, _line, _jobName, _contId, _siteName, _siteContact, _siteComplete, _prodDate, _onsiteDate, _completionDate, _jobPlots);
             return isSaved;
         }
     }

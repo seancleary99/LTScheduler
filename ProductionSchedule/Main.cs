@@ -74,7 +74,7 @@ namespace ProductionSchedule
             craneForm.Show();
         }
 
-        private void jobsToolStripMenuItem_Click(object sender, EventArgs e)
+        private void LoadJobsForm()
         {
             CloseOpenForms();
             frmJobs jobsForm = new frmJobs();
@@ -89,6 +89,24 @@ namespace ProductionSchedule
             jobsForm.MdiParent = this;
             jobsForm.Show();
 
+        }
+
+        private void jobsToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            LoadJobsForm();
+            //CloseOpenForms();
+            //frmJobs jobsForm = new frmJobs();
+            //jobsForm.Left = 0;
+            //jobsForm.Top = 0;
+            //Rectangle recNew = new Rectangle();
+            //recNew = this.ClientRectangle;
+            //recNew.Height -= 4;
+            //recNew.Width -= 4;
+            //jobsForm.Size = recNew.Size;
+            //jobsForm.FormBorderStyle = FormBorderStyle.None;
+            //jobsForm.MdiParent = this;
+            //jobsForm.Show();
+
 
         }
 
@@ -96,7 +114,7 @@ namespace ProductionSchedule
         {
             foreach (Form f in this.MdiChildren) {
                 if (f.Name != "Main")
-                    f.Close();
+                    f.Close();                
             }
             //foreach (Form f in Application.OpenForms)
             //{
@@ -146,20 +164,46 @@ namespace ProductionSchedule
         private void Main_Load(object sender, EventArgs e)
         {
             // TODO: This line of code loads data into the 'DataSet2.GetJobPlotsReportForDates' table. You can move, or remove it, as needed.
-            this.GetJobPlotsReportForDatesTableAdapter.Fill(this.DataSet2.GetJobPlotsReportForDates, dtFrom.Value, dtTo.Value);
-            // TODO: This line of code loads data into the 'DataSet2.GetJobPlotsReport' table. You can move, or remove it, as needed.
-            this.GetJobPlotsReportTableAdapter.Fill(this.DataSet2.GetJobPlotsReport);
-            // TODO: This line of code loads data into the 'DataSet2.Jobs' table. You can move, or remove it, as needed.
-            this.JobsTableAdapter.Fill(this.DataSet2.Jobs);
-
-            
-            this.reportViewer1.RefreshReport();
+            LoadJobsForm();
         }
 
-        private void btnFilter_Click(object sender, EventArgs e)
+       
+        private void scheduleToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            this.GetJobPlotsReportForDatesTableAdapter.Fill(this.DataSet2.GetJobPlotsReportForDates, dtFrom.Value, dtTo.Value);
-            this.reportViewer1.RefreshReport();
+            CloseOpenForms();
+            Schedule schedule = new Schedule();
+
+            schedule.Left = 0;
+            schedule.Top = 0;
+            Rectangle recNew = new Rectangle();
+            recNew = this.ClientRectangle;
+            recNew.Height -= 4;
+            recNew.Width -= 4;
+            schedule.Size = recNew.Size;
+
+
+            schedule.FormBorderStyle = FormBorderStyle.None;
+            schedule.MdiParent = this;
+            schedule.Show();
+        }
+
+        private void workingHoursToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            CloseOpenForms();
+            frmWorkingHours hoursForm = new frmWorkingHours();
+
+            hoursForm.Left = 0;
+            hoursForm.Top = 0;
+            Rectangle recNew = new Rectangle();
+            recNew = this.ClientRectangle;
+            recNew.Height -= 4;
+            recNew.Width -= 4;
+            hoursForm.Size = recNew.Size;
+
+
+            hoursForm.FormBorderStyle = FormBorderStyle.None;
+            hoursForm.MdiParent = this;
+            hoursForm.Show();
         }
     }
 }

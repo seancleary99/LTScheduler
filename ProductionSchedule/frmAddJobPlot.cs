@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using DAL;
 using DAL.Classes;
-using System.Data;
+
 
 namespace ProductionSchedule
 {
@@ -35,7 +35,8 @@ namespace ProductionSchedule
             PopulatePlots();
         }
 
-        private void PopulatePlots() {
+
+        public void PopulatePlots() {
             DAL.DAL db = new DAL.DAL();
             dgUnscheduledPlots.DataSource = plotBindingSource1;
 
@@ -56,7 +57,7 @@ namespace ProductionSchedule
                 foreach (DataGridViewRow r in dgUnscheduledPlots.SelectedRows)
                 {
                     Plot newPlot = new Plot((int)r.Cells[0].Value);
-                    JobPlot newJPlot = new JobPlot(0, newPlot.ID, int.Parse(lblJobIdValue.Text), newPlot.PlotType, 0, 0, null, null, null);
+                    JobPlot newJPlot = new JobPlot(0, newPlot.ID, int.Parse(lblJobIdValue.Text), newPlot.PlotType, 0, 0);
                     newJPlot.Save();
                 }
                 PopulatePlots();
@@ -66,6 +67,14 @@ namespace ProductionSchedule
         private void frmAddJobPlot_FormClosed(object sender, FormClosedEventArgs e)
         {
             mainForm.PopulateJobPlots();
+        }
+
+        private void btnCreateNewPlot_Click(object sender, EventArgs e)
+        {
+            frmPlot newPlotForm = new frmPlot(this);
+            newPlotForm.WindowState = FormWindowState.Normal;
+
+            newPlotForm.ShowDialog();
         }
     }
 }

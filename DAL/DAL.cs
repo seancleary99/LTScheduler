@@ -497,7 +497,7 @@ namespace DAL
 
                 foreach (DataRow r in dtJobs.Rows)
                 {
-                    Job e = new Job((int)r["JobID"], r["JobName"].ToString(), r["Line"].ToString(), (int)r["JobContractorID"], r["SiteName"].ToString(),r["SiteContact"].ToString(), (bool)r["SiteComplete"],(DateTime)r["ProductionDate"], (DateTime)r["OnsiteDate"], (DateTime)r["CompletionDate"],null);
+                    Job e = new Job((int)r["JobID"], r["JobName"].ToString(), r["Line"].ToString(), (int)r["JobContractorID"], r["SiteName"].ToString(),r["SiteContact"].ToString(), (bool)r["SiteComplete"],(DateTime)r["ProductionDate"], r["ProductionCompleteDate"] == DBNull.Value ? null : (DateTime?)r["ProductionCompleteDate"], (DateTime)r["OnsiteDate"], (DateTime)r["CompletionDate"],null);
                     lstJobs.Add(e);
                 }
             }
@@ -566,13 +566,13 @@ namespace DAL
 
                 foreach (DataRow r in dtJobPlots.Rows)
                 {
-                    DateTime pDate;
-                    DateTime.TryParse(r[6].ToString(), out pDate);
-                    DateTime onDate;
-                    DateTime.TryParse(r[7].ToString(), out onDate);
-                    DateTime cDate;
-                    DateTime.TryParse(r[8].ToString(), out cDate);
-                    JobPlot jp = new JobPlot((int)r[0], (int)r[1], (int)r[2], (int)r[3], (int)r[4], (int)r[5],pDate, onDate, cDate);
+                    //DateTime pDate;
+                    //DateTime.TryParse(r[6].ToString(), out pDate);
+                    //DateTime onDate;
+                    //DateTime.TryParse(r[7].ToString(), out onDate);
+                    //DateTime cDate;
+                    //DateTime.TryParse(r[8].ToString(), out cDate);
+                    JobPlot jp = new JobPlot((int)r[0], (int)r[1], (int)r[2], (int)r[3], (int)r[4], (int)r[5]);
                    
                     lstJobPlots.Add(jp);
                 }
@@ -588,7 +588,7 @@ namespace DAL
             }
             return lstJobPlots;
         }
-        public bool SaveJob(int jobID, string line, string jobName, int jobContractorID, string siteName, string siteContact, bool siteComplete, DateTime prodDate, DateTime onsiteDate, DateTime completionDate, List<Plot> plots)
+        public bool SaveJob(int jobID, string line, string jobName, int jobContractorID, string siteName, string siteContact, bool siteComplete, DateTime prodDate, DateTime onsiteDate, DateTime completionDate, List<JobPlot> jobplots)
         {
             bool isSaved = true;
             int newJobID = 0;
@@ -614,10 +614,10 @@ namespace DAL
                 int.TryParse(spSaveJob.ExecuteScalar().ToString(), out newJobID);
                 if (newJobID > 0)
                 {
-                    foreach(Plot p in plots)
+                    foreach(JobPlot p in jobplots)
                     {
-                        //p.JobID = newJobID;
-                       // p.Save();
+                        p.JobID = newJobID;
+                        p.Save();
                     }
 
                 }
@@ -635,7 +635,8 @@ namespace DAL
 
         }
 
-        public int SaveJobPlot(int jobPlotId, int plotId, int jobID, int houseType, int erectorId, int craneId, DateTime? prodDate, DateTime? onsiteDate, DateTime? completionDate)
+        //public int SaveJobPlot(int jobPlotId, int plotId, int jobID, int houseType, int erectorId, int craneId, DateTime? prodDate, DateTime? onsiteDate, DateTime? completionDate)
+        public int SaveJobPlot(int jobPlotId, int plotId, int jobID, int houseType, int erectorId, int craneId)
         {
             bool isSaved = true;
             int newJobPlotID = 0;
@@ -649,9 +650,9 @@ namespace DAL
             spSaveJob.Parameters.Add(new SqlParameter("@HouseType", houseType));
             spSaveJob.Parameters.Add(new SqlParameter("@ErectorID", erectorId));
             spSaveJob.Parameters.Add(new SqlParameter("@CraneID", craneId));
-            spSaveJob.Parameters.Add(new SqlParameter("@ProdDate", prodDate));
-            spSaveJob.Parameters.Add(new SqlParameter("@OnsiteDate", onsiteDate));
-            spSaveJob.Parameters.Add(new SqlParameter("@CompDate", completionDate));
+            //spSaveJob.Parameters.Add(new SqlParameter("@ProdDate", prodDate));
+            //spSaveJob.Parameters.Add(new SqlParameter("@OnsiteDate", onsiteDate));
+            //spSaveJob.Parameters.Add(new SqlParameter("@CompDate", completionDate));
 
 
             try
@@ -679,6 +680,30 @@ namespace DAL
             }
             return newJobPlotID;
 
+        }
+
+        public bool DeleteJobPlot(int jobPlotId)
+        {
+            bool isDeleted = true;
+            SqlCommand spDel = new SqlCommand("DeleteJobPlot", conn);
+            spDel.CommandType = System.Data.CommandType.StoredProcedure;
+            spDel.Parameters.Add(new SqlParameter("@JobPlotID", jobPlotId));
+
+            try
+            {
+                conn.Open();
+                spDel.ExecuteNonQuery();
+            }
+            catch (Exception ex)
+            {
+                isDeleted = false;
+            }
+            finally
+            {
+                conn.Close();
+
+            }
+            return isDeleted;
         }
         #endregion
 
@@ -802,6 +827,44 @@ namespace DAL
             }
             return dtPlot;
         }
+
+        /// <summary>
+        /// Gets the jobs for a week for exporting to Excel
+        /// </summary>
+        /// <param name="dateFrom"></param>
+        /// <param name="dateTo"></param>
+        /// <returns></returns>
+        public DataTable GetWeeklyJobsForExport(string dateFrom, string dateTo)
+        {
+            DataTable dtJobs = null;
+            SqlCommand spGetWeeklyJobs = new SqlCommand("GetWeeklyScheduleForPrinting", conn);
+            spGetWeeklyJobs.CommandType = System.Data.CommandType.StoredProcedure;
+            spGetWeeklyJobs.Parameters.Add(
+                new SqlParameter("@fromDate", dateFrom));
+            spGetWeeklyJobs.Parameters.Add(
+                new SqlParameter("@toDate", dateTo));
+
+            try
+            {
+                conn.Open();
+                SqlDataAdapter sDa = new SqlDataAdapter(spGetWeeklyJobs);
+                dtJobs = new DataTable();
+                sDa.Fill(dtJobs);
+            }
+            catch (Exception ex)
+            {
+
+            }
+            finally
+            {
+                conn.Close();
+
+            }
+            return dtJobs;
+
+        }
+
+
         public bool DeletePlot(int id)
         {
             bool isDeleted = true;
@@ -824,6 +887,47 @@ namespace DAL
 
             }
             return isDeleted;
+        }
+
+        #endregion
+
+        #region Schedule
+        public bool RecalculateSchedule(int weeklyHours, DateTime? fromDateTime)
+        {
+            bool recalcComplete = true;
+            string formatteddtNow;
+            if (fromDateTime == null)
+            {
+                DateTime dtNow = System.DateTime.Now.Date;
+                formatteddtNow = String.Format("{0:yyyy/MM/dd}", dtNow);
+            }
+            else
+            {
+                formatteddtNow = String.Format("{0:yyyy/MM/dd}", (DateTime)fromDateTime);
+            }
+            SqlCommand spRecalc = new SqlCommand("RecalculateSchedule", conn);
+            spRecalc.CommandType = System.Data.CommandType.StoredProcedure;
+            spRecalc.Parameters.Add(
+                new SqlParameter("@workingHours", weeklyHours));
+            spRecalc.Parameters.Add(
+                new SqlParameter("@weekStarting", formatteddtNow));
+
+            try
+            {
+                conn.Open();
+                spRecalc.ExecuteNonQuery();
+                
+            }
+            catch (Exception ex)
+            {
+                recalcComplete = false;
+            }
+            finally
+            {
+                conn.Close();
+            }
+
+            return recalcComplete;
         }
 
         #endregion

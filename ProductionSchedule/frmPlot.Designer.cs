@@ -112,7 +112,7 @@
             this.dgPlots.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgPlots.Location = new System.Drawing.Point(15, 161);
             this.dgPlots.Name = "dgPlots";
-            this.dgPlots.Size = new System.Drawing.Size(559, 150);
+            this.dgPlots.Size = new System.Drawing.Size(699, 286);
             this.dgPlots.TabIndex = 6;
             this.dgPlots.RowHeaderMouseClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.dgPlots_RowHeaderMouseClick);
             // 
@@ -162,7 +162,7 @@
             // 
             // btnNew
             // 
-            this.btnNew.Location = new System.Drawing.Point(15, 318);
+            this.btnNew.Location = new System.Drawing.Point(16, 453);
             this.btnNew.Name = "btnNew";
             this.btnNew.Size = new System.Drawing.Size(86, 23);
             this.btnNew.TabIndex = 13;
@@ -172,7 +172,7 @@
             // 
             // btnSavePlot
             // 
-            this.btnSavePlot.Location = new System.Drawing.Point(107, 318);
+            this.btnSavePlot.Location = new System.Drawing.Point(108, 453);
             this.btnSavePlot.Name = "btnSavePlot";
             this.btnSavePlot.Size = new System.Drawing.Size(86, 23);
             this.btnSavePlot.TabIndex = 14;
@@ -182,7 +182,7 @@
             // 
             // btnDelPlot
             // 
-            this.btnDelPlot.Location = new System.Drawing.Point(488, 318);
+            this.btnDelPlot.Location = new System.Drawing.Point(489, 453);
             this.btnDelPlot.Name = "btnDelPlot";
             this.btnDelPlot.Size = new System.Drawing.Size(86, 23);
             this.btnDelPlot.TabIndex = 15;
@@ -194,7 +194,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(912, 353);
+            this.ClientSize = new System.Drawing.Size(726, 488);
             this.Controls.Add(this.btnDelPlot);
             this.Controls.Add(this.btnSavePlot);
             this.Controls.Add(this.btnNew);
@@ -214,6 +214,7 @@
             this.Name = "frmPlot";
             this.Text = "frmPlot";
             this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.frmPlot_FormClosing);
             this.Load += new System.EventHandler(this.frmPlot_Load);
             ((System.ComponentModel.ISupportInitialize)(this.dgPlots)).EndInit();
             this.ResumeLayout(false);

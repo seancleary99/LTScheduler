@@ -32,6 +32,7 @@
             this.lblJobIdValue = new System.Windows.Forms.Label();
             this.dgUnscheduledPlots = new System.Windows.Forms.DataGridView();
             this.btnAddPlots = new System.Windows.Forms.Button();
+            this.btnCreateNewPlot = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dgUnscheduledPlots)).BeginInit();
             this.SuspendLayout();
             // 
@@ -70,11 +71,22 @@
             this.btnAddPlots.UseVisualStyleBackColor = true;
             this.btnAddPlots.Click += new System.EventHandler(this.btnAddPlots_Click);
             // 
+            // btnCreateNewPlot
+            // 
+            this.btnCreateNewPlot.Location = new System.Drawing.Point(433, 225);
+            this.btnCreateNewPlot.Name = "btnCreateNewPlot";
+            this.btnCreateNewPlot.Size = new System.Drawing.Size(98, 23);
+            this.btnCreateNewPlot.TabIndex = 5;
+            this.btnCreateNewPlot.Text = "Create New Plot";
+            this.btnCreateNewPlot.UseVisualStyleBackColor = true;
+            this.btnCreateNewPlot.Click += new System.EventHandler(this.btnCreateNewPlot_Click);
+            // 
             // frmAddJobPlot
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(543, 269);
+            this.Controls.Add(this.btnCreateNewPlot);
             this.Controls.Add(this.btnAddPlots);
             this.Controls.Add(this.dgUnscheduledPlots);
             this.Controls.Add(this.lblJobIdValue);
@@ -95,5 +107,6 @@
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.DataGridView dgUnscheduledPlots;
         private System.Windows.Forms.Button btnAddPlots;
+        private System.Windows.Forms.Button btnCreateNewPlot;
     }
 }

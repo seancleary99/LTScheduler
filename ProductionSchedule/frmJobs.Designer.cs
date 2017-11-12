@@ -58,6 +58,13 @@
             this.btnAddPlot = new System.Windows.Forms.Button();
             this.dgJobPlots = new System.Windows.Forms.DataGridView();
             this.label5 = new System.Windows.Forms.Label();
+            this.lblProductionTime = new System.Windows.Forms.Label();
+            this.tbProductionTime = new System.Windows.Forms.TextBox();
+            this.btnExport = new System.Windows.Forms.Button();
+            this.btnRecalc = new System.Windows.Forms.Button();
+            this.label6 = new System.Windows.Forms.Label();
+            this.dtProdCompleteDate = new System.Windows.Forms.DateTimePicker();
+            this.dtExportSchedStartDate = new System.Windows.Forms.DateTimePicker();
             ((System.ComponentModel.ISupportInitialize)(this.dgJobs)).BeginInit();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgJobPlots)).BeginInit();
@@ -65,7 +72,7 @@
             // 
             // Delete
             // 
-            this.Delete.Location = new System.Drawing.Point(116, 499);
+            this.Delete.Location = new System.Drawing.Point(116, 546);
             this.Delete.Name = "Delete";
             this.Delete.Size = new System.Drawing.Size(75, 23);
             this.Delete.TabIndex = 100;
@@ -74,7 +81,7 @@
             // 
             // btnSaveJob
             // 
-            this.btnSaveJob.Location = new System.Drawing.Point(12, 499);
+            this.btnSaveJob.Location = new System.Drawing.Point(12, 546);
             this.btnSaveJob.Name = "btnSaveJob";
             this.btnSaveJob.Size = new System.Drawing.Size(98, 23);
             this.btnSaveJob.TabIndex = 99;
@@ -184,7 +191,7 @@
             // lblSiteCompleted
             // 
             this.lblSiteCompleted.AutoSize = true;
-            this.lblSiteCompleted.Location = new System.Drawing.Point(12, 313);
+            this.lblSiteCompleted.Location = new System.Drawing.Point(12, 368);
             this.lblSiteCompleted.Name = "lblSiteCompleted";
             this.lblSiteCompleted.Size = new System.Drawing.Size(87, 13);
             this.lblSiteCompleted.TabIndex = 37;
@@ -193,16 +200,17 @@
             // chkSiteComplete
             // 
             this.chkSiteComplete.AutoSize = true;
-            this.chkSiteComplete.Location = new System.Drawing.Point(119, 313);
+            this.chkSiteComplete.Location = new System.Drawing.Point(119, 368);
             this.chkSiteComplete.Name = "chkSiteComplete";
             this.chkSiteComplete.Size = new System.Drawing.Size(15, 14);
             this.chkSiteComplete.TabIndex = 6;
             this.chkSiteComplete.UseVisualStyleBackColor = true;
+            this.chkSiteComplete.CheckedChanged += new System.EventHandler(this.chkSiteComplete_CheckedChanged);
             // 
             // btnAddNewJob
             // 
             this.btnAddNewJob.AutoSize = true;
-            this.btnAddNewJob.Location = new System.Drawing.Point(206, 499);
+            this.btnAddNewJob.Location = new System.Drawing.Point(206, 546);
             this.btnAddNewJob.Name = "btnAddNewJob";
             this.btnAddNewJob.Size = new System.Drawing.Size(81, 23);
             this.btnAddNewJob.TabIndex = 101;
@@ -221,7 +229,8 @@
             // 
             // dtProductionDate
             // 
-            this.dtProductionDate.CustomFormat = "DD/MM/YYYY";
+            this.dtProductionDate.CustomFormat = "dd/MM/yyyy HH:mm";
+            this.dtProductionDate.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
             this.dtProductionDate.Location = new System.Drawing.Point(119, 198);
             this.dtProductionDate.Name = "dtProductionDate";
             this.dtProductionDate.Size = new System.Drawing.Size(200, 20);
@@ -230,7 +239,7 @@
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(12, 239);
+            this.label3.Location = new System.Drawing.Point(12, 263);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(68, 13);
             this.label3.TabIndex = 104;
@@ -238,8 +247,9 @@
             // 
             // dtOnSite
             // 
-            this.dtOnSite.CustomFormat = "DD/MM/YYYY";
-            this.dtOnSite.Location = new System.Drawing.Point(119, 233);
+            this.dtOnSite.CustomFormat = "dd/MM/yyyy HH:mm";
+            this.dtOnSite.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
+            this.dtOnSite.Location = new System.Drawing.Point(119, 257);
             this.dtOnSite.Name = "dtOnSite";
             this.dtOnSite.Size = new System.Drawing.Size(200, 20);
             this.dtOnSite.TabIndex = 105;
@@ -247,7 +257,8 @@
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(12, 275);
+            this.label4.Enabled = false;
+            this.label4.Location = new System.Drawing.Point(12, 299);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(88, 13);
             this.label4.TabIndex = 106;
@@ -255,11 +266,14 @@
             // 
             // dtCompletionDate
             // 
-            this.dtCompletionDate.CustomFormat = "DD/MM/YYYY";
-            this.dtCompletionDate.Location = new System.Drawing.Point(119, 268);
+            this.dtCompletionDate.CustomFormat = "dd/MM/yyyy HH:mm";
+            this.dtCompletionDate.Enabled = false;
+            this.dtCompletionDate.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
+            this.dtCompletionDate.Location = new System.Drawing.Point(119, 292);
             this.dtCompletionDate.Name = "dtCompletionDate";
             this.dtCompletionDate.Size = new System.Drawing.Size(200, 20);
             this.dtCompletionDate.TabIndex = 107;
+            this.dtCompletionDate.Visible = false;
             // 
             // dgJobs
             // 
@@ -267,9 +281,9 @@
             this.dgJobs.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.AllHeaders;
             this.dgJobs.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgJobs.EditMode = System.Windows.Forms.DataGridViewEditMode.EditProgrammatically;
-            this.dgJobs.Location = new System.Drawing.Point(15, 343);
+            this.dgJobs.Location = new System.Drawing.Point(15, 390);
             this.dgJobs.Name = "dgJobs";
-            this.dgJobs.Size = new System.Drawing.Size(873, 150);
+            this.dgJobs.Size = new System.Drawing.Size(1021, 150);
             this.dgJobs.TabIndex = 108;
             this.dgJobs.RowHeaderMouseClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.dgJobs_RowHeaderMouseClick);
             // 
@@ -282,17 +296,18 @@
             this.panel1.Controls.Add(this.label5);
             this.panel1.Location = new System.Drawing.Point(370, 37);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(518, 289);
+            this.panel1.Size = new System.Drawing.Size(882, 289);
             this.panel1.TabIndex = 109;
             // 
             // btnEditPlot
             // 
-            this.btnEditPlot.Location = new System.Drawing.Point(391, 249);
+            this.btnEditPlot.Location = new System.Drawing.Point(557, 249);
             this.btnEditPlot.Name = "btnEditPlot";
             this.btnEditPlot.Size = new System.Drawing.Size(109, 23);
             this.btnEditPlot.TabIndex = 4;
             this.btnEditPlot.Text = "Edit Plot";
             this.btnEditPlot.UseVisualStyleBackColor = true;
+            this.btnEditPlot.Click += new System.EventHandler(this.btnEditPlot_Click);
             // 
             // btnRemovePlot
             // 
@@ -302,6 +317,7 @@
             this.btnRemovePlot.TabIndex = 3;
             this.btnRemovePlot.Text = "Remove Plot";
             this.btnRemovePlot.UseVisualStyleBackColor = true;
+            this.btnRemovePlot.Click += new System.EventHandler(this.btnRemovePlot_Click);
             // 
             // btnAddPlot
             // 
@@ -318,7 +334,7 @@
             this.dgJobPlots.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgJobPlots.Location = new System.Drawing.Point(22, 46);
             this.dgJobPlots.Name = "dgJobPlots";
-            this.dgJobPlots.Size = new System.Drawing.Size(478, 185);
+            this.dgJobPlots.Size = new System.Drawing.Size(644, 185);
             this.dgJobPlots.TabIndex = 1;
             // 
             // label5
@@ -331,11 +347,84 @@
             this.label5.TabIndex = 0;
             this.label5.Text = "JOB PLOTS";
             // 
+            // lblProductionTime
+            // 
+            this.lblProductionTime.AutoSize = true;
+            this.lblProductionTime.Enabled = false;
+            this.lblProductionTime.Location = new System.Drawing.Point(12, 337);
+            this.lblProductionTime.Name = "lblProductionTime";
+            this.lblProductionTime.Size = new System.Drawing.Size(87, 13);
+            this.lblProductionTime.TabIndex = 110;
+            this.lblProductionTime.Text = "Production Time:";
+            // 
+            // tbProductionTime
+            // 
+            this.tbProductionTime.Enabled = false;
+            this.tbProductionTime.Location = new System.Drawing.Point(119, 334);
+            this.tbProductionTime.Name = "tbProductionTime";
+            this.tbProductionTime.Size = new System.Drawing.Size(165, 20);
+            this.tbProductionTime.TabIndex = 111;
+            // 
+            // btnExport
+            // 
+            this.btnExport.Location = new System.Drawing.Point(722, 546);
+            this.btnExport.Name = "btnExport";
+            this.btnExport.Size = new System.Drawing.Size(103, 23);
+            this.btnExport.TabIndex = 112;
+            this.btnExport.Text = "Export to Excel";
+            this.btnExport.UseVisualStyleBackColor = true;
+            this.btnExport.Click += new System.EventHandler(this.btnExport_Click);
+            // 
+            // btnRecalc
+            // 
+            this.btnRecalc.Location = new System.Drawing.Point(1063, 390);
+            this.btnRecalc.Name = "btnRecalc";
+            this.btnRecalc.Size = new System.Drawing.Size(122, 23);
+            this.btnRecalc.TabIndex = 113;
+            this.btnRecalc.Text = "Recalculate Schedule";
+            this.btnRecalc.UseVisualStyleBackColor = true;
+            this.btnRecalc.Click += new System.EventHandler(this.btnRecalc_Click);
+            // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Location = new System.Drawing.Point(12, 230);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(108, 13);
+            this.label6.TabIndex = 114;
+            this.label6.Text = "Production Complete:";
+            // 
+            // dtProdCompleteDate
+            // 
+            this.dtProdCompleteDate.CustomFormat = "dd/MM/yyyy HH:mm";
+            this.dtProdCompleteDate.Enabled = false;
+            this.dtProdCompleteDate.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
+            this.dtProdCompleteDate.Location = new System.Drawing.Point(119, 230);
+            this.dtProdCompleteDate.Name = "dtProdCompleteDate";
+            this.dtProdCompleteDate.Size = new System.Drawing.Size(200, 20);
+            this.dtProdCompleteDate.TabIndex = 115;
+            // 
+            // dtExportSchedStartDate
+            // 
+            this.dtExportSchedStartDate.CustomFormat = "dd/MM/yyyy HH:mm";
+            this.dtExportSchedStartDate.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
+            this.dtExportSchedStartDate.Location = new System.Drawing.Point(836, 546);
+            this.dtExportSchedStartDate.Name = "dtExportSchedStartDate";
+            this.dtExportSchedStartDate.Size = new System.Drawing.Size(200, 20);
+            this.dtExportSchedStartDate.TabIndex = 116;
+            // 
             // frmJobs
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(900, 534);
+            this.ClientSize = new System.Drawing.Size(1252, 572);
+            this.Controls.Add(this.dtExportSchedStartDate);
+            this.Controls.Add(this.dtProdCompleteDate);
+            this.Controls.Add(this.label6);
+            this.Controls.Add(this.btnRecalc);
+            this.Controls.Add(this.btnExport);
+            this.Controls.Add(this.tbProductionTime);
+            this.Controls.Add(this.lblProductionTime);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.dgJobs);
             this.Controls.Add(this.dtCompletionDate);
@@ -406,5 +495,12 @@
         private System.Windows.Forms.Button btnAddPlot;
         private System.Windows.Forms.DataGridView dgJobPlots;
         private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.Label lblProductionTime;
+        private System.Windows.Forms.TextBox tbProductionTime;
+        private System.Windows.Forms.Button btnExport;
+        private System.Windows.Forms.Button btnRecalc;
+        private System.Windows.Forms.Label label6;
+        private System.Windows.Forms.DateTimePicker dtProdCompleteDate;
+        private System.Windows.Forms.DateTimePicker dtExportSchedStartDate;
     }
 }

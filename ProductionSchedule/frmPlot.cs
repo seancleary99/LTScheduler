@@ -16,9 +16,34 @@ namespace ProductionSchedule
         private BindingSource bindingSource1 = new BindingSource();
         private BindingSource cbxBindingSource = new BindingSource();
         private Plot selectedPlot;
+        private int selectedPlotID = 0;
+
+        private frmAddJobPlot mainForm = null;
+        private frmJobs jobForm = null;
 
         public frmPlot()
         {
+            InitializeComponent();
+        }
+
+        public frmPlot(Form callingForm)
+        {
+            Type frmType = callingForm.GetType();
+            switch (frmType.Name.ToLower())
+            {
+                case "frmjobs":
+                    jobForm = callingForm as frmJobs;
+                    break;
+                case "frmaddjobplot":
+                    mainForm = callingForm as frmAddJobPlot;
+                    break;
+            }
+            //mainForm = callingForm as frmAddJobPlot;
+            if (jobForm != null)
+            {
+                selectedPlotID = jobForm.SelectedPlotId;
+                selectedPlot = new Plot(selectedPlotID);
+            }
             InitializeComponent();
         }
 
@@ -48,8 +73,28 @@ namespace ProductionSchedule
             cbxBindingSource.DataSource = lstHouseTypes;
             cbxPlotType.DisplayMember = "HsType";
             cbxPlotType.ValueMember = "ID";
-           
+
+           if (selectedPlotID != 0)
+            {
+                int rowIndex = -1;
+
+                DataGridViewRow row = dgPlots.Rows
+                    .Cast<DataGridViewRow>()
+                    .Where(r => r.Cells[0].Value.ToString().Equals(selectedPlotID.ToString()))
+                    .First();
+
+                rowIndex = row.Index;
+
+                if (rowIndex > -1)
+                {
+                    dgPlots.Rows[rowIndex].Selected = true;
+                    dgPlots.CurrentCell = dgPlots.Rows[rowIndex].Cells[0];
+                    PopulatePlotDetails();
+                }
+            }
         }
+
+
 
         private void ReloadPlots()
         {
@@ -142,12 +187,34 @@ namespace ProductionSchedule
             selectedPlot = new Plot(id);
         }
 
+        private void PopulatePlotDetails()
+        {
+            lblPlotIDVal.Text = selectedPlot.ID.ToString();
+            tbPlotName.Text = selectedPlot.PlotName;
+            cbxPlotType.SelectedValue = selectedPlot.PlotType;
+            tbPlotLineTot.Text = selectedPlot.PlotLineTotal.ToString();
+            tbPlotFloorTot.Text = selectedPlot.PlotFloorTotal.ToString();
+            tbPlotBenchTot.Text = selectedPlot.PlotBenchTotal.ToString();
+            
+        }
         private void btnDelPlot_Click(object sender, EventArgs e)
         {
             selectedPlot.Delete();
             bindingSource1.DataSource = GetPlots();
             selectedPlot = null;
             ClearAll();
+        }
+
+        private void frmPlot_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            if (mainForm != null)
+            {
+                mainForm.PopulatePlots();
+            }
+            if (jobForm != null)
+            {
+                jobForm.PopulateJobPlots();
+            }
         }
     }
 }

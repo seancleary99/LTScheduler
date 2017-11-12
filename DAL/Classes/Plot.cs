@@ -34,13 +34,16 @@ namespace DAL.Classes
             DAL db = new DAL();
             DataTable dtPlot = db.GetPlot(id);
 
-            _id = (int)dtPlot.Rows[0][0];
-            _plotName = dtPlot.Rows[0][1].ToString();
-            _plotType = (int)dtPlot.Rows[0][2];
-            float.TryParse(dtPlot.Rows[0][3].ToString(), out _lineTot);
-            float.TryParse(dtPlot.Rows[0][4].ToString(), out _floorTot);
-            float.TryParse(dtPlot.Rows[0][5].ToString(), out _benchTot);
+            if (dtPlot.Rows.Count == 1)
+            {
 
+                _id = (int)dtPlot.Rows[0][0];
+                _plotName = dtPlot.Rows[0][1].ToString();
+                _plotType = (int)dtPlot.Rows[0][2];
+                float.TryParse(dtPlot.Rows[0][3].ToString(), out _lineTot);
+                float.TryParse(dtPlot.Rows[0][4].ToString(), out _floorTot);
+                float.TryParse(dtPlot.Rows[0][5].ToString(), out _benchTot);
+            }
         }
 
 
